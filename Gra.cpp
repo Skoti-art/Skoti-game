@@ -1,4 +1,5 @@
 #include <iostream>
+#include<iomanip>
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
@@ -20,12 +21,13 @@ void pokazPlansze(char plansza[ROZMIAR][ROZMIAR]) {
 
     for (int kolumna = 0; kolumna < ROZMIAR; kolumna++) {
         cout << kolumna + 1 << " ";
+
     }
 
     cout << endl;
 
     for (int wiersz = 0; wiersz < ROZMIAR; wiersz++) {
-        cout << wiersz + 1 << "  ";
+        cout << setw(2)<<wiersz + 1<<" ";
 
         for (int kolumna = 0; kolumna < ROZMIAR; kolumna++) {
             cout << plansza[wiersz][kolumna] << " ";
@@ -34,7 +36,12 @@ void pokazPlansze(char plansza[ROZMIAR][ROZMIAR]) {
         cout << endl;
     }
 }
-
+bool czymoznaPostawic(char planszaStatkow[ROZMIAR][ROZMIAR], int wiersz, int kolumna, int dlugosc, int kierunek){
+for(int i = 0;i<dlugosc; i++){
+    int aktualnyWiersz = wiersz +(kierunek ++ 1 ? i : 0);
+    int aktualnaKolumna = kolumna + (kierunek)
+}
+}
 int main() {
 
 cout<<"Witaj Graczu!!!Witaj w Statkach. Znajdz wszystkie statki przeciwnika i zniszcz je!!!Powodzenia";
