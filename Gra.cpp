@@ -38,10 +38,34 @@ void pokazPlansze(char plansza[ROZMIAR][ROZMIAR]) {
 }
 bool czymoznaPostawic(char planszaStatkow[ROZMIAR][ROZMIAR], int wiersz, int kolumna, int dlugosc, int kierunek){
 for(int i = 0;i<dlugosc; i++){
-    int aktualnyWiersz = wiersz +(kierunek ++ 1 ? i : 0);
-    int aktualnaKolumna = kolumna + (kierunek)
+    int aktualnyWiersz = wiersz +(kierunek == 1 ? i : 0);
+    int aktualnaKolumna = kolumna + (kierunek == 0 ? i : 0);
+    if(aktualnyWiersz < 0 || aktualnyWiersz >= ROZMIAR || aktualnaKolumna < 0 || aktualnaKolumna >=ROZMIAR){
+        return false;
+    }
+    for(int dw = -1;dw= 1;dw++){
+        for(int dk = -1;dk <= 1; dk++){
+            int sprawdzanyWiersz =aktualnyWiersz + dw;
+            int sprawdzanaKolumna = aktualnaKolumna + dk;
+            if(sprawdzanyWiersz < 0 || sprawdzanyWiersz >= ROZMIAR || sprawdzanaKolumna < 0 || sprawdzanaKolumna >= ROZMIAR){
+                continue;
+            }
+            if(planszaStatkow[sprawdzanyWiersz][sprawdzanaKolumna] == 'S'){
+                return false;
+            }
+        }
+    }
 }
+    return true;
 }
+void postawStatek(char planszaStatkow[ROZMIAR][ROZMIAR], int wiersz, int kolumna, int dlugosc, int kierunek){
+    for(int i = 0; i < dlugosc; i++){
+        int aktualnyWiersz = wiersz +(kierunek == 1 ? i : 0);
+        int aktualnaKolumna = kolumna + (kierunek == 0 ? i : 0);
+        planszaStatkow[aktualnyWiersz][aktualnaKolumna] = 'S';
+    }
+}
+//losowanie wszystkich statkow
 int main() {
 
 cout<<"Witaj Graczu!!!Witaj w Statkach. Znajdz wszystkie statki przeciwnika i zniszcz je!!!Powodzenia";
