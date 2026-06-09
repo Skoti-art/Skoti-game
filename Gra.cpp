@@ -8,10 +8,12 @@ using namespace std;
 
 const int ROZMIAR = 10;
 const int ILE_STATKOW = 10;
+
+
 void wypelnijPlansze(char plansza[ROZMIAR][ROZMIAR],char znak) {
     for (int wiersz = 0; wiersz < ROZMIAR; wiersz++) {
         for (int kolumna = 0; kolumna < ROZMIAR; kolumna++) {
-            plansza[wiersz][kolumna] = '0';
+            plansza[wiersz][kolumna] = znak;
         }
     }
 }
@@ -46,8 +48,18 @@ bool CzyPoleJestNaPlanszy(int wiersz, int kolumna){
 }
 bool CzyMoznaPostawic(char planszaStatkow[ROZMIAR][ROZMIAR], int wiersz, int kolumna, int dlugosc, int kierunek){
 for(int i = 0;i<dlugosc; i++){
-    int aktualnyWiersz = wiersz +(kierunek == 1 ? i : 0);
-    int aktualnaKolumna = kolumna + (kierunek == 0 ? i : 0);
+    //int aktualnyWiersz = wiersz +(kierunek == 1 ? i : 0);
+    int aktualnyWiersz;
+    if (kierunek==1) aktualnyWiersz = wiersz + i;
+    else aktualnyWiersz = wiersz;
+
+    //int aktualnaKolumna = kolumna + (kierunek == 0 ? i : 0);
+    int aktualnaKolumna;
+    if (kierunek == 0)
+        aktualnaKolumna = kolumna + i;
+    else
+        aktualnaKolumna = kolumna;
+
     if (CzyPoleJestNaPlanszy(aktualnyWiersz, aktualnaKolumna) == false) {
         return false;
     }
@@ -57,6 +69,7 @@ for(int i = 0;i<dlugosc; i++){
             int sprawdzanaKolumna = aktualnaKolumna + zmianaKolumny;
             if (CzyPoleJestNaPlanszy(sprawdzanyWiersz, sprawdzanaKolumna)) {
                 if (planszaStatkow[sprawdzanyWiersz][sprawdzanaKolumna] == 'S') {
+                        return false;
                 }
             }
         }
@@ -120,6 +133,8 @@ void losujWszystkieStatki(char planszaStatkow[ROZMIAR][ROZMIAR], int dlugosciSta
     dlugosciStatkow[9] = 1;
     losujStatek(planszaStatkow, 1, numerStatku);
     numerStatku++;
+    losujStatek(planszaStatkow, 1, numerStatku);
+
 }
 void pokazPlanszeTestowa(char planszaStatkow[ROZMIAR][ROZMIAR]) {
     cout << "\nPlansza testowa ze statkami:";
@@ -140,9 +155,12 @@ void pokazPlanszeTestowa(char planszaStatkow[ROZMIAR][ROZMIAR]) {
         }
         for (int kolumna = 0; kolumna < ROZMIAR; kolumna++) {
             if (planszaStatkow[wiersz][kolumna] == '.') {
-                cout << ".  ";
+                cout << planszaStatkow[wiersz][kolumna]<<" ";
+                //cout << ".  ";
             } else {
-                cout << "S  ";
+                cout << planszaStatkow[wiersz][kolumna]<<" ";
+                //cout << "S  ";
+
             }
         }
         cout << endl;
