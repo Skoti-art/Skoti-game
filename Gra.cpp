@@ -46,35 +46,35 @@ bool CzyPoleJestNaPlanszy(int wiersz, int kolumna){
     }
     return false;
 }
-bool CzyMoznaPostawic(char planszaStatkow[ROZMIAR][ROZMIAR], int wiersz, int kolumna, int dlugosc, int kierunek){
-for(int i = 0;i<dlugosc; i++){
-    //int aktualnyWiersz = wiersz +(kierunek == 1 ? i : 0);
-    int aktualnyWiersz;
-    if (kierunek==1) aktualnyWiersz = wiersz + i;
-    else aktualnyWiersz = wiersz;
-
-    //int aktualnaKolumna = kolumna + (kierunek == 0 ? i : 0);
-    int aktualnaKolumna;
-    if (kierunek == 0)
-        aktualnaKolumna = kolumna + i;
-    else
-        aktualnaKolumna = kolumna;
-
-    if (CzyPoleJestNaPlanszy(aktualnyWiersz, aktualnaKolumna) == false) {
-        return false;
-    }
-    for (int zmianaWiersza = -1; zmianaWiersza <= 1; zmianaWiersza++) {
-        for (int zmianaKolumny = -1; zmianaKolumny <= 1; zmianaKolumny++) {
-            int sprawdzanyWiersz = aktualnyWiersz + zmianaWiersza;
-            int sprawdzanaKolumna = aktualnaKolumna + zmianaKolumny;
-            if (CzyPoleJestNaPlanszy(sprawdzanyWiersz, sprawdzanaKolumna)) {
-                if (planszaStatkow[sprawdzanyWiersz][sprawdzanaKolumna] == 'S') {
+bool CzyMoznaPostawic(char planszaStatkow[ROZMIAR][ROZMIAR],int wiersz,int kolumna, int dlugosc,int kierunek){
+    for (int i = 0;i<dlugosc;i++){
+        int aktualnyWiersz;
+        int aktualnaKolumna;
+        if (kierunek == 0){
+            aktualnyWiersz = wiersz;
+            aktualnaKolumna = kolumna + i;
+        }else{
+            aktualnyWiersz = wiersz + i;
+            aktualnaKolumna = kolumna;
+        }
+        if (aktualnyWiersz < 0 || aktualnyWiersz >= ROZMIAR || aktualnaKolumna < 0 || aktualnaKolumna >= ROZMIAR){
+            return false;
+        }
+        if (planszaStatkow[aktualnyWiersz][aktualnaKolumna] != '.'){
+            return false;
+        }
+        for (int zmianaWiersza = -1;zmianaWiersza <=1;zmianaWiersza++){
+            for(int zmianaKolumny = -1;zmianaKolumny <=1;zmianaKolumny++){
+                int sprawdzonyWiersz = aktualnyWiersz + zmianaWiersza;
+                int sprawdzonaKolumna = aktualnaKolumna + zmianaKolumny;
+                if (sprawdzonyWiersz >= 0 && sprawdzonyWiersz < ROZMIAR && sprawdzonaKolumna >= 0 && sprawdzonaKolumna < ROZMIAR){
+                    if (planszaStatkow[sprawdzonyWiersz][sprawdzonaKolumna]!='.'){
                         return false;
+                    }
                 }
             }
         }
     }
-}
     return true;
 }
 void postawStatek(char planszaStatkow[ROZMIAR][ROZMIAR], int wiersz, int kolumna, int dlugosc, int kierunek, int numerStatku){
@@ -155,11 +155,11 @@ void pokazPlanszeTestowa(char planszaStatkow[ROZMIAR][ROZMIAR]) {
         }
         for (int kolumna = 0; kolumna < ROZMIAR; kolumna++) {
             if (planszaStatkow[wiersz][kolumna] == '.') {
-                cout << planszaStatkow[wiersz][kolumna]<<" ";
-                //cout << ".  ";
+                //cout << planszaStatkow[wiersz][kolumna]<<" ";
+                cout << ".  ";
             } else {
-                cout << planszaStatkow[wiersz][kolumna]<<" ";
-                //cout << "S  ";
+                //cout << planszaStatkow[wiersz][kolumna]<<" ";
+                cout << "S  ";
 
             }
         }
